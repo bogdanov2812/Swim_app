@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_calendar">
+
+    <fragment
+        android:id="@+id/nav_results"
+        android:name="com.example.myapplication.results.ResultsFragment"
+        android:label="@string/menu_results"
+        tools:layout="@layout/fragment_results" />
+
+    <fragment
+        android:id="@+id/nav_calculate"
+        android:name="com.example.myapplication.calculate.CalculateFragment"
+        android:label="@string/menu_calculate"
+        tools:layout="@layout/fragment_calculate" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.myapplication.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/nav_ranks"
+        android:name="com.example.myapplication.RanksFragment"
+        android:label="@string/menu_ranks"
+        tools:layout="@layout/fragment_ranks" />
+    <fragment
+        android:id="@+id/nav_calendar"
+        android:name="com.example.myapplication.calendar.CalendarFragment"
+        android:label="@string/menu_calendar"
+        tools:layout="@layout/fragment_calendar" />
+</navigation>

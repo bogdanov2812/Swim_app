@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/distance_text"
+        android:layout_width="13dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:minHeight="64dp"
+        android:textAlignment="center"
+        tools:text="distance"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:gravity="center_vertical"
+        android:minHeight="64dp"
+        android:textAlignment="center"
+        tools:text="time"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/curse_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:minHeight="64dp"
+        android:textAlignment="center"
+        tools:text="curse"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:gravity="center_vertical"
+        android:minHeight="64dp"
+        android:textAlignment="center"
+        tools:text="date"
+        tools:ignore="RtlCompat" />
+
+
+    <ImageView
+        android:id="@+id/delete_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_delete" />
+
+</LinearLayout>

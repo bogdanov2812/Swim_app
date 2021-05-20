@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/icon_calendar"
+            android:title="@string/menu_calendar" />
+        <item
+            android:id="@+id/nav_results"
+            android:icon="@drawable/icon_results"
+            android:title="@string/menu_results" />
+        <item
+            android:id="@+id/nav_calculate"
+            android:icon="@drawable/icon_calculate"
+            android:title="@string/menu_calculate" />
+        <item
+            android:id="@+id/nav_ranks"
+            android:icon="@drawable/icon_ranks"
+            android:title="@string/menu_ranks" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/icon_profile"
+            android:title="@string/menu_profile" />
+    </group>
+</menu>

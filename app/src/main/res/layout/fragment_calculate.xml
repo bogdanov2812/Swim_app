@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calculate.CalculateFragment">
+
+    <EditText
+        android:id="@+id/editTextTime"
+        android:layout_width="256dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="204dp"
+        android:ems="10"
+        android:hint="ММ:СС:ДД или Кол-во очков"
+        android:inputType="time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="91dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="118dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginBottom="75dp"
+        android:text="Посчитать"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextTime" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bt_next_pool"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <TextSwitcher
+        android:id="@+id/text_switcher_pool"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_next_pool"
+        app:layout_constraintEnd_toStartOf="@+id/bt_next_pool"
+        app:layout_constraintStart_toEndOf="@+id/bt_previos_pool"
+        app:layout_constraintTop_toTopOf="@+id/bt_next_pool" />
+
+    <ImageButton
+        android:id="@+id/bt_previos_pool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="5dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_navigate_before_24"
+        app:layout_constraintEnd_toStartOf="@+id/text_switcher_pool"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_switcher_pool" />
+
+    <ImageButton
+        android:id="@+id/bt_next_pool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="65dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_navigate_next_24"
+        app:layout_constraintEnd_toStartOf="@+id/spinner2"
+        app:layout_constraintStart_toEndOf="@+id/text_switcher_pool"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextSwitcher
+        android:id="@+id/text_switcher_gender"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_previos_gender"
+        app:layout_constraintEnd_toStartOf="@+id/bt_next_gender"
+        app:layout_constraintStart_toEndOf="@+id/bt_previos_gender"
+        app:layout_constraintTop_toTopOf="@+id/bt_previos_gender" />
+
+    <ImageButton
+        android:id="@+id/bt_next_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="203dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_navigate_next_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_switcher_gender"
+        app:layout_constraintTop_toTopOf="@+id/text_switcher_gender" />
+
+    <ImageButton
+        android:id="@+id/bt_previos_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="112dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_navigate_before_24"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTime"
+        app:layout_constraintEnd_toStartOf="@+id/text_switcher_gender"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="220dp"
+        android:text="Результат:"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
