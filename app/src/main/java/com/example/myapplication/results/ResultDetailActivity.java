@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,12 +20,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.example.myapplication.App;
 import com.example.myapplication.R;
+import com.example.myapplication.RanksFragment;
 import com.example.myapplication.calculate.CalculateFragment;
 import com.example.myapplication.calculate.DBHelper;
 import com.example.myapplication.calendar.CalendarFragment;
@@ -43,6 +48,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class ResultDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -61,6 +68,8 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
 
     private Button select_date;
 
+    private TextSwitcher textSwitcher_pool;
+    ImageButton btPrevious_pool, btNext_pool;
 
     private FirebaseAuth mAuth;
     private FirebaseUser CurrentUser;
@@ -71,10 +80,14 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
     DBHelper dbHelper;
 
     String[] distance = {"50 в/ст", "100 в/ст", "200 в/ст", "400 в/ст", "800 в/ст", "1500 в/ст","50 н/сп","100 н/сп","200 н/сп","50 бр","100 бр","200 бр","50 батт","100 батт","200 батт","100 к/пл","200 к/пл","400 к/пл"};
-    String[] curse = {"25м", "50м"};
+    ArrayList<String> distance_list = new ArrayList<String>();
 
-    String[] ranks = {"msmk","ms","kms","first_r","second_r","third_r","first_rj","second_rj","third_rj"};
+
     String[] ranks1 = {"МСМК", "МС", "КМС", "1 разряд", "2 разряд","3 разряд", "1 юн. разряд", "2 юн. разряд", "3 юн. разряд"};
+
+    String[] pool = {"25м", "50м"};
+    int count_pool = pool.length;
+    int position_pool = 0;
 
     public static void start(Activity caller, Result result){
         Intent intent = new Intent(caller,ResultDetailActivity.class);
@@ -97,31 +110,25 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("Защли в самое начало");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_detail);
 
         dbHelper = new DBHelper(ResultDetailActivity.this);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
 
+        btPrevious_pool = findViewById(R.id.bt_previos_pool2);
+        btNext_pool = findViewById(R.id.bt_next_pool2);
+        textSwitcher_pool = findViewById(R.id.text_switcher_pool);
+
+        distance_list.addAll(Arrays.asList(distance));
+
         spinner_distance = findViewById(R.id.spinner_distance);
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<String> adapter_dist = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, distance);
+        ArrayAdapter<String> adapter_dist = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, distance_list);
         // Определяем разметку для использования при выборе элемента
         adapter_dist.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Применяем адаптер к элементу spinner
         spinner_distance.setAdapter(adapter_dist);
-
-
-
-        spinner_curse = findViewById(R.id.spinner_curse);
-        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<String> adapter_pool = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, curse);
-        // Определяем разметку для использования при выборе элемента
-        adapter_pool.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Применяем адаптер к элементу spinner
-        spinner_curse.setAdapter(adapter_pool);
-
 
         setTitle(R.string.result_detail_title);
 
@@ -147,6 +154,79 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
             }
         });
 
+        select_date = findViewById(R.id.select_date);
+        select_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+        if (getIntent().hasExtra(EXTRA_RESULT)){
+            result = getIntent().getParcelableExtra(EXTRA_RESULT);
+            time.setText(result.time);
+            spinner_distance.setSelection(spinner_after(distance,result.distance));
+            position_pool = Arrays.asList(pool).indexOf(result.curse);
+            select_date.setText(result.date);
+            rank.setText(result.rank);
+            points.setText(result.points);
+
+        }
+        else{
+            result = new Result();
+        }
+        textSwitcher_pool.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView textView = new TextView(ResultDetailActivity.this);
+                textView.setText(pool[position_pool]);
+                textView.setTextSize(15);
+                textView.setGravity(Gravity.CENTER);
+                return textView;
+            }
+        });
+
+        btNext_pool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                position_pool++;
+                if (position_pool==count_pool)
+                    position_pool=0;
+                textSwitcher_pool.setText(pool[position_pool]);
+
+                if (position_pool == 1){
+                    adapter_dist.remove("100 к/пл");
+                    if(spinner_distance.getSelectedItemPosition()>=16)
+                        spinner_distance.setSelection(spinner_distance.getSelectedItemPosition()-1);
+                }else {
+                    adapter_dist.insert("100 к/пл",15);
+                    if(spinner_distance.getSelectedItemPosition()>=15)
+                        spinner_distance.setSelection(spinner_distance.getSelectedItemPosition()+1);
+                }
+
+            }
+        });
+
+        btPrevious_pool.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textSwitcher_pool.showPrevious();
+                --position_pool;
+                if(position_pool<0)
+                    position_pool=pool.length-1;
+                textSwitcher_pool.setText(pool[position_pool]);
+
+                if (position_pool == 1){
+                    adapter_dist.remove("100 к/пл");
+                    if(spinner_distance.getSelectedItemPosition()>=16)
+                        spinner_distance.setSelection(spinner_distance.getSelectedItemPosition()-1);
+                }else {
+                    adapter_dist.insert("100 к/пл",15);
+                    if(spinner_distance.getSelectedItemPosition()>=15)
+                        spinner_distance.setSelection(spinner_distance.getSelectedItemPosition()+1);
+                }
+            }
+        }));
+
 
 
         time.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -168,6 +248,11 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
                             .appendPattern("ss,SS")
                             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0) // optional, but you can set other value
                             .parseDefaulting(ChronoField.MINUTE_OF_HOUR,0)
+                            .toFormatter();
+
+                    DateTimeFormatter formatter3 = new DateTimeFormatterBuilder()
+                            .appendPattern("m:ss,SS")
+                            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0) // optional, but you can set other value
                             .toFormatter();
 
                     try {
@@ -214,14 +299,23 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
                                     }
 
                                 } catch (DateTimeParseException e) {
-                                    LocalTime time3 = LocalTime.parse(cursor1.getString(i),formatter2);
-                                    System.out.println(t.compareTo(time3));
-                                    if (t.compareTo(time3) <= 0){
-                                        rank.setText(ranks1[i]);
-                                        break;
+                                    try {
+                                        LocalTime time3 = LocalTime.parse(cursor1.getString(i), formatter2);
+                                        System.out.println(t.compareTo(time3));
+                                        if (t.compareTo(time3) <= 0) {
+                                            rank.setText(ranks1[i]);
+                                            break;
+                                        }
+
+                                    }catch (DateTimeParseException e1){
+                                        LocalTime time4 = LocalTime.parse(cursor1.getString(i), formatter3);
+                                        System.out.println(t.compareTo(time4));
+                                        if (t.compareTo(time4) <= 0) {
+                                            rank.setText(ranks1[i]);
+                                            break;
+                                        }
                                     }
                                 }
-
                             }
                         }
 
@@ -250,28 +344,10 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
         });
 
 
-        select_date = findViewById(R.id.select_date);
-        select_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });
 
 
-        if (getIntent().hasExtra(EXTRA_RESULT)){
-            result = getIntent().getParcelableExtra(EXTRA_RESULT);
-            time.setText(result.time);
-            spinner_distance.setSelection(spinner_after(distance,result.distance));
-            spinner_curse.setSelection(spinner_after(curse,result.curse));
-            select_date.setText(result.date);
-            rank.setText(result.rank);
-            points.setText(result.points);
 
-        }
-        else{
-          result = new Result();
-        }
+
 
     }
 
@@ -305,7 +381,8 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
                     result.distance = spinner_distance.getSelectedItem().toString();
                     result.time = time.getText().toString();
                     result.date = select_date.getText().toString();
-                    result.curse = spinner_curse.getSelectedItem().toString();
+                    TextView current_curse_view = (TextView) textSwitcher_pool.getCurrentView();
+                    result.curse = current_curse_view.getText().toString();
                     result.rank = rank.getText().toString();
                     result.points = points.getText().toString();
                     if (getIntent().hasExtra(EXTRA_RESULT)){

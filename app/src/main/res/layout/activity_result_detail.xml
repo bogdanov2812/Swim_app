@@ -7,25 +7,67 @@
     android:orientation="vertical"
     tools:context=".results.ResultDetailActivity">
 
+    <TextSwitcher
+        android:id="@+id/text_switcher_pool"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_distance"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/bt_previos_pool2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/bt_previos_pool2"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_navigate_before_24"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_distance"
+        app:layout_constraintEnd_toStartOf="@+id/text_switcher_pool"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/bt_next_pool2"
+        android:layout_width="28dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="65dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_navigate_next_24"
+        app:layout_constraintEnd_toStartOf="@+id/spinner2"
+        app:layout_constraintStart_toEndOf="@+id/text_switcher_pool"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="25dp"
         android:text="Очки FINA"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/points"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/select_date" />
+        app:layout_constraintTop_toBottomOf="@+id/time" />
 
     <TextView
         android:id="@+id/points"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="197dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,72 +78,60 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="54dp"
         android:ems="10"
         android:hint="ММ:СС:ДД"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/rank"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_curse" />
-
-    <Spinner
-        android:id="@+id/spinner_curse"
-        android:layout_width="126dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="54dp"
-        app:layout_constraintBottom_toTopOf="@+id/time"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_distance" />
+        app:layout_constraintTop_toBottomOf="@+id/select_date" />
 
     <Spinner
         android:id="@+id/spinner_distance"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="73dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="66dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_curse"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="494dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/select_date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="21dp"
-        android:text="Дата соревнований"
-        app:layout_constraintBottom_toTopOf="@+id/select_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinner_distance"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/text_switcher_pool" />
 
     <Button
         android:id="@+id/select_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="194dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="93dp"
         android:text="Выбор даты"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinner_distance"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="21dp"
+        android:text="Дата соревнований"
+        app:layout_constraintBottom_toTopOf="@+id/select_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_switcher_pool"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/rank"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginEnd="83dp"
-        android:layout_marginBottom="162dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="68dp"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/points"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -109,13 +139,12 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="93dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="63dp"
         android:text="Разряд"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/rank"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time" />

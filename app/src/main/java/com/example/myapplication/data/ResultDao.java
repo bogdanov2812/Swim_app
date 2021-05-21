@@ -27,6 +27,9 @@ public interface ResultDao {
     @Query("SELECT * FROM Result WHERE uid = :uid LIMIT 1")
     Result findById(int uid);
 
+    @Query("SELECT * FROM Result WHERE distance = :distance")
+    List<Result> findBydistance(String distance);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Result result);
 

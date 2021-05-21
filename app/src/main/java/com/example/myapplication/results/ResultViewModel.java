@@ -14,4 +14,5 @@ public class ResultViewModel extends ViewModel {
     public LiveData<List<Result>> getResultLiveData(){
         return resultLiveData;
     }
+
 }
