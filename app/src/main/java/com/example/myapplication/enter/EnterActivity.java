@@ -84,14 +84,17 @@ public class EnterActivity extends AppCompatActivity implements DatePickerDialog
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Чтобы сразу заходить
-//                email.setText("hom6@gmail.com");
-//                password.setText("123456789");
-                //
-                if(email.getText().toString().length() != 0 & password.getText().toString().length() != 0)
 
+                if(email.getText().toString().length()==0){
+                    Toast.makeText(EnterActivity.this, "Введите EMAIL", Toast.LENGTH_LONG).show();
+                }
+                if(password.getText().toString().length()==0){
+                    Toast.makeText(EnterActivity.this, "Введите ПАРОЛЬ", Toast.LENGTH_LONG).show();
+                }
+                if(email.getText().toString().length() != 0 & password.getText().toString().length() != 0)
                     signing(email.getText().toString(),password.getText().toString());
             }
+
         });
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -189,11 +192,11 @@ public class EnterActivity extends AppCompatActivity implements DatePickerDialog
                                 user.setHeight(height.getText().toString());
                                 user.setWeight(weight.getText().toString());
 
-                                users.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user)
+                                users.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("User_info").setValue(user)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast toast = Toast.makeText(register_window.getContext(),"Пользователь добавлен!", Toast.LENGTH_SHORT);
+                                                Toast toast = Toast.makeText(register_window.getContext(),"Пользователь зарегистрирован!", Toast.LENGTH_SHORT);
                                                 toast.show();
                                             }
                                         });

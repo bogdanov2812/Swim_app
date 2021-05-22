@@ -113,7 +113,7 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 System.out.println(snapshot.child(CurrentUser.getUid()).getValue().toString());
-                user = snapshot.child(CurrentUser.getUid()).getValue(User.class);
+                user = snapshot.child(CurrentUser.getUid()).child("User_info").getValue(User.class);
                 email.setText(user.getEmail());
                 password.setText(user.getPassword());
                 last_name.setText(user.getLast_name());
@@ -159,14 +159,14 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Map<String, Object> map = new HashMap<>();
 
-                        user = snapshot.child(CurrentUser.getUid()).getValue(User.class);
+                        user = snapshot.child(CurrentUser.getUid()).child("User_info").getValue(User.class);
 
                         if (email.getText().toString().length()==0)
                         {
                             Toast.makeText(ProfileFragment.this.getContext(), "Заполните поле Email",Toast.LENGTH_SHORT).show();
                         } else if(!user.getEmail().equals(email.getText().toString())){
                             CurrentUser.updateEmail(email.getText().toString());
-                            map.put(snapshot.child(CurrentUser.getUid()).child("email").getKey(), email.getText().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("email").getKey(), email.getText().toString());
                         }
 
                         if (password.getText().toString().length()==0)
@@ -174,55 +174,55 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
                             Toast.makeText(ProfileFragment.this.getContext(), "Заполните поле Password",Toast.LENGTH_SHORT).show();
                         } else if(!user.getPassword().equals(password.getText().toString())){
                             CurrentUser.updatePassword(password.getText().toString());
-                            map.put(snapshot.child(CurrentUser.getUid()).child("password").getKey(), password.getText().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("password").getKey(), password.getText().toString());
                         }
 
                         if (last_name.getText().toString().length()==0)
                         {
                             Toast.makeText(getActivity(), "Заполните поле Фамилия",Toast.LENGTH_SHORT).show();
                         } else if(!user.getLast_name().equals(last_name.getText().toString())){
-                            map.put(snapshot.child(CurrentUser.getUid()).child("last_name").getKey(), last_name.getText().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("last_name").getKey(), last_name.getText().toString());
                         }
 
                         if (first_name.getText().toString().length()==0)
                         {
                             Toast.makeText(ProfileFragment.this.getContext(), "Заполните поле Имя",Toast.LENGTH_SHORT).show();
                         } else if(!user.getFirst_name().equals(first_name.getText().toString())){
-                            map.put(snapshot.child(CurrentUser.getUid()).child("first_name").getKey(), first_name.getText().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("first_name").getKey(), first_name.getText().toString());
                         }
 
                         if (height.getText().toString().length()==0)
                         {
                             Toast.makeText(ProfileFragment.this.getContext(), "Заполните поле Рост (см)",Toast.LENGTH_SHORT).show();
                         } else if(!user.getHeight().equals(height.getText().toString())){
-                            map.put(snapshot.child(CurrentUser.getUid()).child("height").getKey(), height.getText().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("height").getKey(), height.getText().toString());
                         }
 
                         if (weight.getText().toString().length()==0)
                         {
                             Toast.makeText(ProfileFragment.this.getContext(), "Заполните поле Вес (кг)",Toast.LENGTH_SHORT).show();
                         } else if(!user.getWeight().equals(weight.getText().toString())){
-                            map.put(snapshot.child(CurrentUser.getUid()).child("weight").getKey(), weight.getText().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("weight").getKey(), weight.getText().toString());
                         }
 
                         if (date_of_birth.getText().toString().length()==0)
                         {
                             Toast.makeText(ProfileFragment.this.getContext(), "Введите дату рождения",Toast.LENGTH_SHORT).show();
                         } else if(!user.getDate_of_birth().equals(date_of_birth.getText().toString())){
-                            map.put(snapshot.child(CurrentUser.getUid()).child("date_of_birth").getKey(), date_of_birth.getText().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("date_of_birth").getKey(), date_of_birth.getText().toString());
                         }
 
                         if(!user.getRank().equals(rank.getSelectedItem().toString())) {
-                            map.put(snapshot.child(CurrentUser.getUid()).child("rank").getKey(), rank.getSelectedItem().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("rank").getKey(), rank.getSelectedItem().toString());
                         }
 
                         if(!user.getGender().equals(gender.getSelectedItem().toString())) {
-                            map.put(snapshot.child(CurrentUser.getUid()).child("gender").getKey(), gender.getSelectedItem().toString());
+                            map.put(snapshot.child(CurrentUser.getUid()).child("User_info").child("gender").getKey(), gender.getSelectedItem().toString());
                         }
 
                         System.out.println(map + " " + map.isEmpty());
                         if (!map.isEmpty()) {
-                            snapshot.getRef().child(CurrentUser.getUid()).updateChildren(map);
+                            snapshot.getRef().child(CurrentUser.getUid()).child("User_info").updateChildren(map);
                         }
                     }
 
@@ -274,7 +274,7 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
         if (dateString.length() >0) {
             String[] date = dateString.split("\\.");
             int year = Integer.parseInt(date[2]);
-            int month = Integer.parseInt(date[1]);
+            int month = Integer.parseInt(date[1])+1;
             int day = Integer.parseInt(date[0]);
 
             datePickerDialog = new DatePickerDialog(this.getContext(), (DatePickerDialog.OnDateSetListener) this,
@@ -282,7 +282,7 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
         }else{
             datePickerDialog = new DatePickerDialog(this.getContext(), (DatePickerDialog.OnDateSetListener) this,
                     Calendar.getInstance().get(Calendar.YEAR),
-                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.MONTH)+1,
                     Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         }
 

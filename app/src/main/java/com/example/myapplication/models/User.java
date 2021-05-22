@@ -1,9 +1,33 @@
 package com.example.myapplication.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Objects;
 
 public class User {
-    private String email, password, last_name, first_name, height, weight, rank, gender, date_of_birth;
+
+    public int id;
+
+    public String email;
+
+
+    public String password;
+
+    public String last_name;
+
+    public String first_name;
+
+    public String height;
+
+    public String weight;
+
+    public String rank;
+
+    public String gender;
+
+    public String date_of_birth;
 
     public User(){
 

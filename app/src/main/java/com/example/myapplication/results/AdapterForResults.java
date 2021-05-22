@@ -109,7 +109,10 @@ public class AdapterForResults extends RecyclerView.Adapter<AdapterForResults.Re
             }else{
                 for(int i = 0;i<resultsList_all.size();i++){
                     System.out.println(constraint.toString() + "   " + resultsList_all.get(i).distance + "  "+resultsList_all.get(i).distance.toLowerCase().contains(constraint.toString().toLowerCase()));
-                    if (resultsList_all.get(i).distance.toLowerCase().contains(constraint.toString().toLowerCase())){
+                    if (resultsList_all.get(i).distance.toLowerCase().contains(constraint.toString().toLowerCase())|
+                            resultsList_all.get(i).time.toLowerCase().contains(constraint.toString().toLowerCase())|
+                            resultsList_all.get(i).curse.toLowerCase().contains(constraint.toString().toLowerCase())|
+                            resultsList_all.get(i).date.toLowerCase().contains(constraint.toString().toLowerCase())){
                         filtered_list.add(resultsList_all.get(i));
                     }
                 }

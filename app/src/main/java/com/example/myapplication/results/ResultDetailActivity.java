@@ -62,8 +62,6 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
 
     private TextView rank,points;
 
-    private Spinner spinner_curse;
-
     private Spinner spinner_distance;
 
     private Button select_date;
@@ -143,7 +141,7 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user = snapshot.child(CurrentUser.getUid()).getValue(User.class);
+                user = snapshot.child(CurrentUser.getUid()).child("User_info").getValue(User.class);
                 System.out.println(user.getGender());
 
             }
@@ -262,7 +260,11 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
                         Cursor cursor;
 
                         Cursor cursor1;
-                        if (spinner_curse.getSelectedItem().toString().equals("25м")) {
+
+                        TextView current_curse_view = (TextView) textSwitcher_pool.getCurrentView();
+
+
+                        if (current_curse_view.getText().toString().equals("25м")) {
                             if (user.getGender().equals("Мужчина")) {
                                 cursor = database.query(DBHelper.TABLE_SHORT_CURSE_M, new String[]{DBHelper.KEY_BASE_TIME}, "distance = ?", new String[]{spinner_distance.getSelectedItem().toString()}, null, null, null);
                                 cursor1 = database.query(DBHelper.TABLE_SHORT_CURSE_M, new String[]{DBHelper.KEY_MSMK,DBHelper.KEY_MS,DBHelper.KEY_KMS,DBHelper.KEY_FIRST_R,DBHelper.KEY_SECOND_R,DBHelper.KEY_THIRD_R,DBHelper.KEY_FIRST_RJ,DBHelper.KEY_SECOND_RJ,DBHelper.KEY_THIRD_RJ}, "distance = ?", new String[]{spinner_distance.getSelectedItem().toString()}, null, null, null);
@@ -286,6 +288,7 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
 
                         if (cursor.moveToFirst()){
                             cursor.getString(0);
+                            System.out.println(cursor.getString((0)));
                         }
 
                         if(cursor1.moveToFirst()){
@@ -354,7 +357,7 @@ public class ResultDetailActivity extends AppCompatActivity implements DatePicke
     private void showDatePickerDialog(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, this,
                 Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.MONTH)+1,
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
